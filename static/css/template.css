@@ -1,0 +1,20 @@
+body {
+  background-color: #457b9d;
+  color: white;
+}
+
+a {
+    color: white;
+}
+
+.map-container {
+    width: 800px;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+    color: white;
+}
+
+

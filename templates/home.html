@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>homepage</title>
+  </head>
+
+  <body>
+    {% extends "template.html" %}
+    {% block content %}
+
+      <div class="map-container" >
+        <h2>World map of corona cases - Last Updated: {{update}}</h2>
+        {{cmap|safe}}
+      </div>
+
+    {% endblock %}
+  </body>
+</html>
