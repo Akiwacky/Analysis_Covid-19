@@ -13,5 +13,7 @@ D
 templates/about.html,5/8/58893e517e4076b20838ca69fba7259ba475306a
 C
 templates/home.html,8/6/86f3a00c4de0ad1280042b4c75ce3672e5141a0f
-D
-static/css/style.css,3/6/36e68d0961b94e1750624bc9e2f66c060d73b91b
+G
+static/css/template.css,d/b/dbf44ee11a53c342c723c0da72dc12ca12105df7
+G
+templates/template.html,4/1/41d3b4a4b71afe0c223778e57c23244caee1baec

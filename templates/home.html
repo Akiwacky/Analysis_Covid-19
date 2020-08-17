@@ -8,11 +8,20 @@
   <body>
     {% extends "template.html" %}
     {% block content %}
-
-      <div class="map-container" >
-        <h2>World map of corona cases - Last Updated: {{update}}</h2>
-        {{cmap|safe}}
+    <div class="container-fluid" >
+      <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2 text-center">World map of corona cases - Last Updated: {{update}}</h1>
       </div>
+          <div class="container">
+            {{cmap|safe}}
+          </div>
+
+           <div class="container">
+            {{cmap|safe}}
+          </div>
+
+
+    </div>
 
     {% endblock %}
   </body>

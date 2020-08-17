@@ -29,11 +29,11 @@ df['updated'] = df['updated'].apply(convert_time_stamp)
 last_update = df['updated'][0]
 
 m = folium.Map(
-    width=800,
-    height=500,
+    width=1100,
+    height=800,
     tiles="CartoDB positron",
     location=[32,0],
-    zoom_start=1.5,
+    zoom_start=2,
 )
 
 folium.Choropleth (
