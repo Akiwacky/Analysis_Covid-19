@@ -14,23 +14,26 @@ country_info = pd.json_normalize(country_info)
 df = pd.concat([re, country_info], axis=1,sort=False)
 df = df.drop('countryInfo', axis=1)
 
-def thousand_separator(val):
-    return f"{val:,}"
+def top_five_countries(n=5):
+    by_country = df.groupby('country').sum()[['cases']]
+    top_five = by_country.nlargest(n, 'cases')[['cases']]
+    top_five['cases'] = top_five['cases'].apply(lambda x: "{:,}".format(x))
+    return top_five
+
+top_five = top_five_countries()
 
 def convert_time_stamp(x):
     t = datetime.fromtimestamp(x/1000.0)
-    s = t.strftime('%Y-%m-%d %H:%M:%S')
+    s = t.strftime('%d-%b-%Y %H:%M:%S')
     return s[:-3]
-
-df['recovered'] = df['recovered'].apply(thousand_separator)
-df['cases'] = df['cases'].apply(thousand_separator)
-df['deaths'] = df['deaths'].apply(thousand_separator)
+#
+# df['recovered'] = df['recovered'].apply(thousand_separator)
+# df['cases'] = df['cases'].apply(thousand_separator)
+# df['deaths'] = df['deaths'].apply(thousand_separator)
 df['updated'] = df['updated'].apply(convert_time_stamp)
 last_update = df['updated'][0]
 
 m = folium.Map(
-    width=1100,
-    height=800,
     tiles="CartoDB positron",
     location=[32,0],
     zoom_start=2,
@@ -61,7 +64,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template("home.html",update=last_update, cmap=html_map)
+    return render_template("home.html", top_five=top_five ,update=last_update, cmap=html_map)
 
 @app.route('/about')
 def about():

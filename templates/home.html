@@ -1,28 +1,61 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>homepage</title>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <title>homepage</title>
+</head>
 
-  <body>
-    {% extends "template.html" %}
-    {% block content %}
-    <div class="container-fluid" >
-      <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2 text-center">World map of corona cases - Last Updated: {{update}}</h1>
+<body>
+{% extends "template.html" %}
+{% block content %}
+<div class="container-fluid" >
+  <div class="justify-content-center mb-3 border-bottom">
+    <h2 class="text-center">World map of corona cases - Last Updated: {{update}}</h2>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-2 px-md-6">
+        <table class="table table-borderless">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Countries</th>
+            <th>Top Cases</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for key,value in top_five.iterrows() %}
+          <tr>
+            <th scope="row">{{value.index.values[]}}</th>
+            <td>{{key}}</td>
+            <td>{{value.values[0]}}</td>
+
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
       </div>
-          <div class="container">
-            {{cmap|safe}}
-          </div>
-
-           <div class="container">
-            {{cmap|safe}}
-          </div>
 
 
+      <div class="col-md-8">
+        {{cmap|safe}}
+      </div>
+
+
+      <div class="col-md-2 px-md-6">
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="text" placeholder="Enter Country">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+          </form>
+      </div>
     </div>
+  </div>
 
-    {% endblock %}
-  </body>
+
+</div>
+
+{% endblock %}
+</body>
 </html>
