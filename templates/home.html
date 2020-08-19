@@ -18,20 +18,15 @@
 
       <div class="col-md-2 px-md-6">
         <table class="table table-borderless">
+             
           <thead>
-          <tr>
-            <th>#</th>
-            <th>Countries</th>
-            <th>Top Cases</th>
-          </tr>
+            <th class="text-center" colspan="2">Top 5 Countries by cases</th>
           </thead>
           <tbody>
           {% for key,value in top_five.iterrows() %}
           <tr>
-            <th scope="row">{{value.index.values[]}}</th>
             <td>{{key}}</td>
             <td>{{value.values[0]}}</td>
-
           </tr>
           {% endfor %}
           </tbody>
