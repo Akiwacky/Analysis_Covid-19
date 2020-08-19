@@ -22,14 +22,22 @@ def top_five_countries(n=5):
 
 top_five = top_five_countries()
 
+def enter_country(t):
+    country = t.title()
+    country.strip()
+    x = df[df['country'] == country]
+    if x.empty:
+        return "Sorry, No current news on this country"
+    else:
+        return x[['country', 'cases', 'todayCases']]
+
 def convert_time_stamp(x):
     t = datetime.fromtimestamp(x/1000.0)
     s = t.strftime('%d-%b-%Y %H:%M:%S')
     return s[:-3]
-#
-# df['recovered'] = df['recovered'].apply(thousand_separator)
-# df['cases'] = df['cases'].apply(thousand_separator)
-# df['deaths'] = df['deaths'].apply(thousand_separator)
+df['recovered'] = df['recovered'].apply(lambda x: "{:,}".format(x))
+df['cases'] = df['cases'].apply(lambda x: "{:,}".format(x))
+df['deaths'] = df['deaths'].apply(lambda x: "{:,}".format(x))
 df['updated'] = df['updated'].apply(convert_time_stamp)
 last_update = df['updated'][0]
 
