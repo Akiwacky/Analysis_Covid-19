@@ -4,49 +4,38 @@ import folium
 from datetime import datetime
 from flask import Flask, render_template
 
-country_geo = 'world-countries.json'
 re = requests.get("https://corona.lmao.ninja/v2/countries?yesterday&sort")
 re = re.json()
 re = pd.DataFrame.from_dict(re)
-pd.set_option('display.max_columns', None)
 country_info = re['countryInfo']
 country_info = pd.json_normalize(country_info)
 df = pd.concat([re, country_info], axis=1,sort=False)
 df = df.drop('countryInfo', axis=1)
 
-def top_five_countries(n=5):
+def top_countries(n=10):
     by_country = df.groupby('country').sum()[['cases']]
     top_five = by_country.nlargest(n, 'cases')[['cases']]
     top_five['cases'] = top_five['cases'].apply(lambda x: "{:,}".format(x))
     return top_five
+top_country = top_countries()
 
-top_five = top_five_countries()
-
-def enter_country(t):
-    country = t.title()
-    country.strip()
-    x = df[df['country'] == country]
-    if x.empty:
-        return "Sorry, No current news on this country"
-    else:
-        return x[['country', 'cases', 'todayCases']]
-
-def convert_time_stamp(x):
-    t = datetime.fromtimestamp(x/1000.0)
+def convert_time_stamp(time):
+    t = datetime.fromtimestamp(time / 1000.0)
     s = t.strftime('%d-%b-%Y %H:%M:%S')
     return s[:-3]
+df['updated'] = df['updated'].apply(convert_time_stamp)
+last_update = df['updated'][0]
+
 df['recovered'] = df['recovered'].apply(lambda x: "{:,}".format(x))
 df['cases'] = df['cases'].apply(lambda x: "{:,}".format(x))
 df['deaths'] = df['deaths'].apply(lambda x: "{:,}".format(x))
-df['updated'] = df['updated'].apply(convert_time_stamp)
-last_update = df['updated'][0]
 
 m = folium.Map(
     tiles="CartoDB positron",
     location=[32,0],
     zoom_start=2,
 )
-
+country_geo = 'world-countries.json'
 folium.Choropleth (
     geo_data= country_geo,
     data=df,
@@ -59,20 +48,19 @@ folium.Choropleth (
 
 def circle_maker(x):
     folium.Circle(location=[x[0],x[1]],
-                 radius=10,
-                 color="red",
-                 popup='{}\n Cases: {}\n Deaths: {}\n Recovered: {}'.format(x[2], x[3], x[4], x[5])).add_to(m)
+                  radius=10,
+                  color="red",
+                  popup='{}\n Cases: {}\n Deaths: {}\n Recovered: {}'.format(x[2], x[3], x[4], x[5])).add_to(m)
 df[['lat','long','country','cases','deaths', 'recovered']].apply(lambda x:circle_maker(x),axis=1)
-html_map = m._repr_html_()
 
-# IFrame(src=m, width=450, height=450)
+html_map = m._repr_html_()
 folium.Popup(src=m, max_width=1000)
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template("home.html", top_five=top_five ,update=last_update, cmap=html_map)
+    return render_template("home.html", top_country=top_country,update=last_update, map=html_map)
 
 @app.route('/about')
 def about():

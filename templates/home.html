@@ -12,19 +12,16 @@
   <div class="justify-content-center mb-3 border-bottom">
     <h2 class="text-center">World map of corona cases - Last Updated: {{update}}</h2>
   </div>
-
   <div class="container-fluid">
     <div class="row">
-
       <div class="col-md-2 px-md-6">
         <table class="table table-borderless">
           <caption></caption>
-             
           <thead>
-            <th id="header" class="text-center" colspan="2">Top 5 Countries by cases</th>
+          <th id="header" class="text-center" colspan="2">Top 10 Countries by cases</th>
           </thead>
           <tbody>
-          {% for key,value in top_five.iterrows() %}
+          {% for key,value in top_country.iterrows() %}
           <tr>
             <td>{{key}}</td>
             <td>{{value.values[0]}}</td>
@@ -33,31 +30,11 @@
           </tbody>
         </table>
       </div>
-
-
       <div class="col-md-8">
-        {{cmap|safe}}
-      </div>
-
-
-      <div class="col-md-2 px-md-6">
-          <form class="form-inline">
-            <input class="form-control mr-sm-2" type="text" placeholder="Enter Country">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        <div class="m-1 d-inline-block"></div>
-        <div class="card text-white bg-info">
-          <h3 class="card-header">Country</h3>
-          <div class="card-body">
-            This is a where the data will go
-          </div>
-        </div>
-
+        {{map|safe}}
       </div>
     </div>
   </div>
-
-
 </div>
 
 {% endblock %}
