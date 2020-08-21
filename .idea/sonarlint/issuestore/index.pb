@@ -1,14 +1,6 @@
 
-8
-Covid.py,5/a/5aa47235b6711a981dd03f79b53acd282c65b916
-8
-Tests.py,a/b/ab299033bb0e267f32fe5b4b4f672d309ffef689
 D
 world-countries.json,6/c/6c093ebca6d3a1e905648d884cef7f444370e835
-?
-covid_data.html,f/2/f2c34121aa7d2eb376837b63ea97c229f4864183
-D
-Covid Analysis.ipynb,6/c/6cdb8950e3fe1c35341a5f0a3c04df4b02807d75
 D
 templates/about.html,5/8/58893e517e4076b20838ca69fba7259ba475306a
 C
@@ -17,3 +9,13 @@ G
 static/css/template.css,d/b/dbf44ee11a53c342c723c0da72dc12ca12105df7
 G
 templates/template.html,4/1/41d3b4a4b71afe0c223778e57c23244caee1baec
+@
+requirements.txt,1/9/19359a61ae2446b51b549167b014da2fcf265768
+Y
+).idea/libraries/Google_App_Engine_SDK.xml,5/d/5dfc1c3e3dbc087bf6b07f1a716d592c6d9da32a
+8
+app.yaml,0/c/0cf0bb82cc508190c215cbfa97023ebc538ede19
+=
+.gcloudignore,2/a/2a591b76d5e5cf55816010dd517fa4667c09cfed
+7
+main.py,f/1/f1bdda93d9a278e358509d498e17d97764c1fb29
