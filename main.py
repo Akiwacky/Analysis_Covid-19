@@ -17,12 +17,14 @@ def top_countries(n=10):
     top_five = by_country.nlargest(n, 'cases')[['cases']]
     top_five['cases'] = top_five['cases'].apply(lambda x: "{:,}".format(x))
     return top_five
+
 top_country = top_countries()
 
 def convert_time_stamp(time):
     t = datetime.fromtimestamp(time / 1000.0)
     s = t.strftime('%d-%b-%Y %H:%M:%S')
     return s[:-3]
+
 df['updated'] = df['updated'].apply(convert_time_stamp)
 last_update = df['updated'][0]
 
@@ -35,6 +37,7 @@ m = folium.Map(
     location=[32,0],
     zoom_start=2,
 )
+
 country_geo = 'world-countries.json'
 folium.Choropleth (
     geo_data= country_geo,
@@ -54,7 +57,6 @@ def circle_maker(x):
 df[['lat','long','country','cases','deaths', 'recovered']].apply(lambda x:circle_maker(x),axis=1)
 
 html_map = m._repr_html_()
-folium.Popup(src=m, max_width=1000)
 
 app = Flask(__name__)
 
