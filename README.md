@@ -11,4 +11,4 @@ In this project I use Python, Bootstrap and Flask to create a web application an
 - Python
 
 # Medium Article
-I have Included a [link](http://example.com "Title") to my medium artcle where i elaborate more on this project.
+I have Included a [link](https://medium.com/@wiajayi/how-i-deployed-a-web-application-to-the-cloud-using-python-flask-and-bootstrap-d432ab6457dc) to my medium artcle where i elaborate more on this project.
